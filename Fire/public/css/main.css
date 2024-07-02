@@ -1,0 +1,10 @@
+body{
+    background-color: black;
+}
+h1,footer{
+    color: blanchedalmond;
+}
+.main{
+    display: flex;
+    justify-content: center;
+}
