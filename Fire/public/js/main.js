@@ -6,8 +6,16 @@ const fftSize = 2048;
 let audioContext;
 let analyser;
 let audioElement;
-let lineWidth = 3
+let lineWidth;
 /************************Audio Input**********************/
+/* 
+TODO:
+  - Change song input
+  - Reset Song on End
+  - Add restart song capabilities
+  - Add slider to play any part of the song
+  - Next/Last song
+*/
 playButton.addEventListener('click', () => {
     if (audioContext) {
       if(audioContext.state === 'running'){
@@ -21,7 +29,8 @@ playButton.addEventListener('click', () => {
       playButton.textContent = "Pause";
       });
     }
-  }else{ // if no audio context exists create one and an anaylser 
+  }
+  else{ // if no audio context exists create one and an anaylser 
       audioContext = new (window.AudioContext || window.webkitAudioContext)();
       analyser = audioContext.createAnalyser();
       analyser.fftSize = fftSize;
@@ -45,23 +54,62 @@ playButton.addEventListener('click', () => {
     }
    }); 
 
+let sineWave = function(amplitude, frequency, numPoints , j, reversed){
+  const increment = 200  / numPoints; // can change to be more than one sine cycle
+  
+  let x = j * increment;
+  if (reversed) x += 200
+  const y = (amplitude * Math.sin(frequency * x));
+  return { x, y };
+}
+
 
   
 /*********************Audio Manipulation******************/
+/*
+TODO:
+  - What to do...
+    - FIRE
+    - LETTERS 
+    - HORIZON/SUNSET
+    - SMOKE
+    - ETC...
+  - Page Design
+  - Interactables...
+    - GAS
+    - WOOD
+    - WATER
+    - MATCH (PLAY)
+    - ETC...
+
+  maybe add features to have the fire get smaller over time
+  maybe add glowing flames over time
+  other modifiers to flame color, style, etc.
+*/
+
 let visualize = function(){
     const bufferLength = analyser.frequencyBinCount;
     const dataArray = new Uint8Array(bufferLength);
     analyser.getByteFrequencyData(dataArray);
     ctx.fillStyle = 'black';
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const lineWidth = canvas.width / (2 * bufferLength);
+    let rand1 = (Math.random() * 0.25) + 0.0001;
+    let rand2 = (Math.random() * 0.) + 0.0001 ;
+
     for (let i = 0; i < bufferLength; i++) {
-        const amplitude = dataArray[i]/255 ;
-        const barHeight = amplitude 
-        ctx.fillRect(100, 100, lineWidth, barHeight);
+      let sine = sineWave(dataArray[i]  , 10, bufferLength, i, false);
+      let reversed = sineWave(dataArray[i] , 10, bufferLength, bufferLength - i, true)
+      ctx.fillRect(sine.x, 200 - sine.y, lineWidth, dataArray[i]);
+      ctx.fillRect(reversed.x,200 -reversed.y, lineWidth,dataArray[i]);
+
     }
+    
     requestAnimationFrame(visualize);
+    
+    
 }
-// I want to take in audio and group it into bins
-// prob along a straight line to start
+
 // take those groups of audio and have the resemble the audio playing and fire
 // audio can range from 
     // soft to Loud
@@ -72,7 +120,3 @@ let visualize = function(){
 // what does fire look like in 2d?
     // prob sin waves that start at different points and flow upwards
 
-// maybe have features to add wood, gas, strike a match to start 
-// maybe add features to have the fire get smaller over time
-// maybe add glowing flames over time
-// other modifiers to flame color, style, etc.

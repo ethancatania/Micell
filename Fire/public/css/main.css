@@ -1,5 +1,5 @@
 body{
-    background-color: black;
+    background-color: orangered;
 }
 h1,footer{
     color: blanchedalmond;
@@ -7,4 +7,9 @@ h1,footer{
 .main{
     display: flex;
     justify-content: center;
+}
+#canvas {
+    border: 2px solid black;
+    display: block;
+    margin: auto;
 }
