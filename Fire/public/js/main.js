@@ -58,7 +58,6 @@ let sineWave = function(amplitude, frequency, numPoints , j, reversed){
   const increment = 200  / numPoints; // can change to be more than one sine cycle
   
   let x = j * increment;
-  if (reversed) x += 200
   const y = (amplitude * Math.sin(frequency * x));
   return { x, y };
 }
@@ -91,17 +90,29 @@ let visualize = function(){
     const bufferLength = analyser.frequencyBinCount;
     const dataArray = new Uint8Array(bufferLength);
     analyser.getByteFrequencyData(dataArray);
-    ctx.fillStyle = 'black';
+    
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     const lineWidth = canvas.width / (2 * bufferLength);
-    let rand1 = (Math.random() * 0.25) + 0.0001;
-    let rand2 = (Math.random() * 0.) + 0.0001 ;
+    let rand1 = (Math.random() *0.25) + 0.0001;
+    let rand2 = (Math.random()* 0.25) + 0.0001 ;
 
     for (let i = 0; i < bufferLength; i++) {
-      let sine = sineWave(dataArray[i]  , 10, bufferLength, i, false);
-      let reversed = sineWave(dataArray[i] , 10, bufferLength, bufferLength - i, true)
-      ctx.fillRect(sine.x, 200 - sine.y, lineWidth, dataArray[i]);
-      ctx.fillRect(reversed.x,200 -reversed.y, lineWidth,dataArray[i]);
+      let sine = sineWave(dataArray[i]  *  (1+rand1)/1.3 , (10+rand2), bufferLength, i, false);
+      let reversed = sineWave(dataArray[i] *(1+rand2)/1.3, (10+rand1), bufferLength, bufferLength - i, true)
+      let smallerSine = sineWave(dataArray[i]/2 , (10+rand2), bufferLength, i, false);
+      let smallerReversed = sineWave(dataArray[i]/2, (10+rand1), bufferLength, bufferLength - i, true)
+      ctx.fillStyle = 'yellow';
+      ctx.fillRect(200 - sine.x, 400 + sine.y, lineWidth, -dataArray[i]);
+      ctx.fillRect(400 - reversed.x, 400 +reversed.y, lineWidth,-dataArray[i]);
+      ctx.fillStyle = 'orangered';
+      ctx.fillRect(200 - sine.x, 400 + sine.y, lineWidth, -dataArray[i]/4);
+      ctx.fillRect(400 - reversed.x, 400 +reversed.y, lineWidth,-dataArray[i]/4);
+      ctx.fillStyle = 'white';
+      ctx.fillRect(200 - sine.x, 400 + sine.y, lineWidth, -dataArray[i]/8);
+      ctx.fillRect(400 - reversed.x, 400 +reversed.y, lineWidth,-dataArray[i]/8);
+      ctx.fillStyle = 'maroon';
+      ctx.fillRect(200 - smallerSine.x, 400 + smallerSine.y, lineWidth, -dataArray[i]);
+      ctx.fillRect(400 - smallerReversed.x, 400 +smallerReversed.y, lineWidth,-dataArray[i]);
 
     }
     
