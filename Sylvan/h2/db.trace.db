@@ -1,0 +1,26 @@
+2024-10-29 16:51:24 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "TABLES" not found; SQL statement:
+SELECT * FROM tables; [42102-200]
+2024-10-29 16:51:57 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "TABLES" not found; SQL statement:
+SELECT * FROM tables; [42102-200]
+2024-10-29 16:52:37 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "TABLES" not found; SQL statement:
+SELECT * FROM Tables; [42102-200]
+2024-10-29 16:54:47 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "TABLES" not found; SQL statement:
+SELECT * FROM Tables; [42102-200]
+2024-10-29 17:06:55 jdbc[6]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Method is only allowed for a query. Use execute or executeUpdate instead of executeQuery; SQL statement:
+Update Tables Set status = 'B' WHERE pk_table_num = ?; [90002-200]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:505)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:429)
+	at org.h2.message.DbException.get(DbException.java:205)
+	at org.h2.message.DbException.get(DbException.java:181)
+	at org.h2.message.DbException.get(DbException.java:170)
+	at org.h2.command.Prepared.query(Prepared.java:231)
+	at org.h2.command.CommandContainer.query(CommandContainer.java:285)
+	at org.h2.command.Command.executeQuery(Command.java:195)
+	at org.h2.jdbc.JdbcPreparedStatement.executeQuery(JdbcPreparedStatement.java:114)
+	at com.seating.host.DAO.TableDAO.setTableToBus(TableDAO.java:83)
+	at com.seating.host.app.main(app.java:24)

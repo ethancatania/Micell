@@ -1,0 +1,9 @@
+{
+    "java.home": "C:\\Users\\ethan\\Documents\\Oracle_JDK-22\\bin",
+    "java.configuration.runtimes": [
+        {
+            "name": "Oracle_JDK-22",
+            "path": "C:\\Users\\ethan\\Documents\\Oracle_JDK-22\\bin"
+        }
+    ]
+}

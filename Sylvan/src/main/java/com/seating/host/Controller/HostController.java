@@ -1,0 +1,14 @@
+package com.seating.host.Controller;
+
+/*
+ * CLASS TO CONTROL SEATING
+ *  - DETERMINE NEXT TABLE TO BE SAT
+ *  - RESPOSIBLE FOR SETTING TABLES TO CURRENT STATUS
+ *  - SHOULD EVENTULLY HANDLE RESERVATIONS 
+ *  - SHOULD EVENTUALLY BE ABLE TO JOIN TABLES TOGETHER FOR LARGER PARTIES
+ */
+public class HostController{
+    public HostController(){
+        
+    }
+}
