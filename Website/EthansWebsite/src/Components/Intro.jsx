@@ -2,6 +2,8 @@ import React, { useState, useCallback } from 'react';
 import Desc from './Desc.jsx';
 import ShortDesc from './ShortDesc.jsx';
 import Switch from './Switch.jsx';
+import { JackInTheBox , Fade } from 'react-awesome-reveal';
+import Icon from './Icon.jsx';
 
 const Intro = function() {
     const [TLDR, setTLDR] = useState(false);
@@ -9,25 +11,42 @@ const Intro = function() {
         console.log('Switch clicked');
         setTLDR((prev) => !prev);
     }, []);
-
     return (
         <div className="intro">
-            <h1>Hello, I'm Ethan!</h1>
-            <p>Welcome to my website...</p>
+            <JackInTheBox>
+                <h1>Hello, I'm Ethan!</h1>
+                <h2>Welcome to my website...</h2>
+                <br></br>
+            </JackInTheBox>
+
+            <Fade>
+                <Icon></Icon>
+                <div className='TLDR'>
+                <h2>TLDR </h2>
+                <Switch onClick={handleSwitchClick} />
+                </div>
+            </Fade>
+            
             { TLDR == true ? (
             <>
-                <h2>Want to Know More? <Switch onClick={handleSwitchClick} /></h2>
                 
-                <ShortDesc />
+                <Fade>
+                    <ShortDesc />
+                </Fade>
+                
             </>
             )
               : (
             <>
-                <h2>Too Long? <Switch onClick={handleSwitchClick} /> </h2>
-                
-                <Desc /> 
+                <Fade>
+                    <Desc /> 
+                </Fade>
             </>
             )}
+
+            <h2>But What Else is There?</h2>
+            
+
             
         </div>
     );
