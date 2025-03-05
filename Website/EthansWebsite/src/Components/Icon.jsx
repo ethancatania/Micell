@@ -1,6 +1,6 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome, faLink, faBook, faSquareBinary, faBriefcase, faFile } from '@fortawesome/free-solid-svg-icons'
+import { faBook, faSquareBinary, faBriefcase, faFile } from '@fortawesome/free-solid-svg-icons'
 import { faGithub , faLinkedin} from '@fortawesome/free-brands-svg-icons'
 
 const ClickableIcon = ({ id, icon, link }) => {
