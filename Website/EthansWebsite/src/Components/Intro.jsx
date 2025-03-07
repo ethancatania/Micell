@@ -11,9 +11,7 @@ const Intro = function() {
     const handleSwitchTLDR = useCallback(() => {
         setTLDR((prev) => !prev);
     }, []);
-    const handleSwitchCoolPic = useCallback(() => {
-        setCoolPic((prev) => !prev);
-    })
+
     return (
         <div className="intro">
             <JackInTheBox>
@@ -29,26 +27,19 @@ const Intro = function() {
                 <Switch onClick={handleSwitchTLDR} />
                 </div>
             </Fade>
-            {coolPic ? (
-                <div className="desc">
-                </div>
-                ) 
-                : (
-                TLDR ? (
+
+                { TLDR ? (
                     <Fade>
                         <ShortDesc />
-                        <Switch onClick={handleSwitchCoolPic} />
                     </Fade>
 
                 )
                 : (
                 <>
                     <Fade>
-                        <Desc /> 
-                        <Switch onClick={handleSwitchCoolPic} />
+                        <Desc />
                     </Fade>
                 </>
-                )
             )}
             <h1 className='subtitle' >🚧 Under Construction 🚧</h1>
             <br></br>

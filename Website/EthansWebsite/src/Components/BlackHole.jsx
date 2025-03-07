@@ -1,7 +1,8 @@
 import React, { useRef, useEffect, useState } from 'react';
 import Switch from './Switch';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMusic } from '@fortawesome/free-solid-svg-icons';
+import { faMusic, faFileAudio} from '@fortawesome/free-solid-svg-icons';
+var hasFile = false;
 const BlackHole = () => {
     const ref = useRef(null);
     const audioRef = useRef(null);
@@ -12,11 +13,13 @@ const BlackHole = () => {
     let WHITE = "#fff";
     let BLACK = "#000";
     let fft = 512;
+    
 
     
     const defaultFilePath = '/public/Resources/secrets.mp3';
 
     const handleFileChange = (event) => {
+        hasFile == true;
         const uploadedFile = event.target.files[0];
             setFile(uploadedFile); // Store the uploaded MP3 file
     };
@@ -29,10 +32,15 @@ const BlackHole = () => {
         const centerY = canvasHeight / 2;
         let circleRadius = Math.min(centerX, centerY) - 150;
         const ctx = canvas.getContext('2d');
+        
+        
 
         const audioFile = file || new File([defaultFilePath], defaultFilePath, { type: 'audio/mpeg' });
 
-        if (!audioFile) return;
+        if (!audioFile){
+
+            return;
+        } 
         const audioElement = new Audio(URL.createObjectURL(audioFile)); 
         audioRef.current = audioElement;
 
@@ -53,20 +61,14 @@ const BlackHole = () => {
             // Clear the canvas
             ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
-            //draw white circle
+            //draw white circle the size of the radius
             ctx.fillStyle = WHITE;
-            ctx.lineWidth = lineWidth;
+            ctx.lineWidth = 5;
             ctx.beginPath();
-            ctx.arc(centerX, centerY, circleRadius, 0, 2 * Math.PI);
+            ctx.arc(centerX, centerY, circleRadius + 2, 0, 2 * Math.PI);
             ctx.fill();
 
-            //draw black circle slighty smaller
-            ctx.fillStyle = BLACK;
-            ctx.lineWidth = lineWidth;
-            ctx.beginPath();
-            ctx.arc(centerX, centerY, circleRadius - 5, 0, 2 * Math.PI);
-            ctx.fill();
-            
+
             
             const angleIncrement = (Math.PI)**3 / bufferLength;
             let angle = 0 ;
@@ -120,16 +122,44 @@ const BlackHole = () => {
             
             <div id="music">
                 <div id='musicControls'>
-                    <FontAwesomeIcon id="note" icon={faMusic} />
+                    <FontAwesomeIcon id="note" icon={faMusic} />    
                     <Switch onClick={() => setIsPlaying(!isPlaying)}></Switch>
-                    <input id="songInput" type='file' accept='.mp3' onChange={handleFileChange} ></input>
+                    <FileInput handleFileChange={handleFileChange}/>
                 </div>
-                <canvas ref={ref} width={400} height={400} />
+                <div className='musicContainer'>
+                    <canvas id="canvas" ref={ref} width={400} height={400} />
+                    <div className='circle'></div>
+                    <div className="hole">
+                        <i></i>
+                        <i></i>
+                        <i></i>
+                        <i></i>
+                        <i></i>
+                        <i></i>
+                        <i></i>
+                        <i></i>
+                        <i></i>
+                        <i></i>
+                    </div>
+                </div>
             </div>
             
             
         </>
     );
 };
-
+const FileInput = ({ handleFileChange }) => (
+    <div className="file-input-container">
+      <input
+        type="file"
+        id="fileInput"
+        className="file-input"
+        onChange={handleFileChange}
+      />
+      <label htmlFor="fileInput" className="file-label">
+        {!hasFile ? (<FontAwesomeIcon icon={faFileAudio} className="icon" />):(<FontAwesomeIcon icon={faMusic} className="icon" />)}
+        
+      </label>
+    </div>
+  );
 export default BlackHole;
