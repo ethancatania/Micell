@@ -1,6 +1,6 @@
 import React from 'react';
 import BlackHole from './BlackHole';
-import Twenty from './Twenty';
+import Twenty from './DebtTracker';
 import Switch from './Switch';
 const Games = function() {
     return (

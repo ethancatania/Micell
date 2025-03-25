@@ -2,26 +2,33 @@ import React, { useRef, useEffect, useState } from 'react';
 import Switch from './Switch';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMusic, faFileAudio} from '@fortawesome/free-solid-svg-icons';
-var hasFile = false;
 const BlackHole = () => {
     const ref = useRef(null);
     const audioRef = useRef(null);
     const animationRef = useRef(null); 
     const [file, setFile] = useState(null);
     const [isPlaying, setIsPlaying] = useState(false);
+    const [hasFile, setHasFile] = useState(false);
+
     let lineWidth = 3; 
     let WHITE = "#fff";
     let BLACK = "#000";
     let fft = 512;
     
+    
 
     
-    const defaultFilePath = '/public/Resources/secrets.mp3';
+    const defaultFilePath = '/Resources/secrets.mp3';
 
     const handleFileChange = (event) => {
-        hasFile == true;
         const uploadedFile = event.target.files[0];
-            setFile(uploadedFile); // Store the uploaded MP3 file
+        if (uploadedFile) {
+            setFile(uploadedFile); 
+            setHasFile(true);
+        } else {
+            setFile(null);
+            setHasFile(false);
+        }
     };
 
     useEffect(() => {
@@ -38,7 +45,7 @@ const BlackHole = () => {
         const audioFile = file || new File([defaultFilePath], defaultFilePath, { type: 'audio/mpeg' });
 
         if (!audioFile){
-
+            setHasFile(false);
             return;
         } 
         const audioElement = new Audio(URL.createObjectURL(audioFile)); 
@@ -121,11 +128,20 @@ const BlackHole = () => {
         <>
             
             <div id="music">
-                <div id='musicControls'>
-                    <FontAwesomeIcon id="note" icon={faMusic} />    
-                    <Switch onClick={() => setIsPlaying(!isPlaying)}></Switch>
-                    <FileInput handleFileChange={handleFileChange}/>
+                <div id="musicDesc">
+                        <h2 className='blackHoleBack'>Black Hole Audio Visualizer </h2>
+                        <p className='blackHoleBack'>
+                            As somewhat of a musical black hole myself, I wanted to create a fun, almost mesmerizing way to listen to some of my favorite songs!
+                            By selecting the <FontAwesomeIcon id="descNote" icon={faMusic} /> , you can select an audio file & enjoy as the visualizer consumes the song.
+                            Don't have an audio file? <a href="/Resources/default-audio/Jamie Bathgate - Status.mp3" download> Here </a> .
+                        </p>
+                    <div id='musicControls' className='blackHoleBack'>
+                        <FontAwesomeIcon id="note" icon={faMusic} />    
+                        <Switch onClick={() => setIsPlaying(!isPlaying)}></Switch>
+                        <FileInput handleFileChange={handleFileChange} hasFile={hasFile}/>
+                    </div>
                 </div>
+                
                 <div className='musicContainer'>
                     <canvas id="canvas" ref={ref} width={400} height={400} />
                     <div className='circle'></div>
@@ -148,7 +164,7 @@ const BlackHole = () => {
         </>
     );
 };
-const FileInput = ({ handleFileChange }) => (
+const FileInput = ({ handleFileChange, hasFile }) => (
     <div className="file-input-container">
       <input
         type="file"
@@ -157,7 +173,19 @@ const FileInput = ({ handleFileChange }) => (
         onChange={handleFileChange}
       />
       <label htmlFor="fileInput" className="file-label">
-        {!hasFile ? (<FontAwesomeIcon icon={faFileAudio} className="icon" />):(<FontAwesomeIcon icon={faMusic} className="icon" />)}
+        {!hasFile ? (
+            <FontAwesomeIcon 
+                icon={faMusic} 
+                className="icon" 
+                style={{ color: "red" }} 
+                />
+            ):(
+            <FontAwesomeIcon 
+                icon={faMusic} 
+                className="icon" 
+                style={{ color: "green" }} 
+                />
+            )}
         
       </label>
     </div>

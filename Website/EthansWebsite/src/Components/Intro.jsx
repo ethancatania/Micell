@@ -43,10 +43,6 @@ const Intro = function() {
             )}
             <h1 className='subtitle' >🚧 Under Construction 🚧</h1>
             <br></br>
-            <h2 className='subtitle' >But What Else is There?</h2>
-            
-
-            
         </div>
     );
 };

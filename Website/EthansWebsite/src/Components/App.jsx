@@ -11,7 +11,7 @@ function App() {
     <>
       <Intro />
       <Games />
-      <Tech />
+      {/*<Tech />*/}
       <Hobbies/>
     </>
   )

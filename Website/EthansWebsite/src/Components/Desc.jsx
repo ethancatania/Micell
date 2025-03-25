@@ -9,7 +9,7 @@ const Desc = function() {
         
             <img alt='WPI Logo' src='/public/Resources/WPI_Inst_Prim_FulClr.png'></img>
             <img alt='MY Face' src='/public/Resources/prof.jpeg'></img>
-            <p className='serve'> I have always loved sports and have been involved in at  least three sports for the majority of my life, often in a leadership role. I have also spent the last six years
+            <p className='serve'> I have always loved sports and have been involved in at least three sports for the majority of my life, often in a leadership role. I have also spent the last six years
                 working at a local restaurant, progressing from busser to host, then food runner, and finally server. Over the past two years of serving, I have honed my people skills
                 and adaptability to difficult situations. Serving has also allowed me to observe a large sample size of people and what they consider good service. I have learned
                 to provide experiences for individuals rather than provide a cookie-cutter transaction, as most restaurants have become today. </p>
